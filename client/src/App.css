@@ -1,21 +1,21 @@
-.App {
+.app {
   text-align: center;
   background-color: black;
   color: #66fcf1;
 }
 
-.bigHeader {
+.big-header {
   padding: 40px;
 }
 
-.filmBox {
+.film-box {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   padding: 0px 20px 0px 20px;
 }
 
-.filmItem {
+.film-item {
   text-align: left;
   max-width: 360px;
   padding: 0px;
@@ -25,12 +25,13 @@
   background-color: ;
 }
 
-.filmHead {
+.film-head {
   background-color: #45a29e;
+  padding-left: 5px;
 }
 
-.openingCrawl {
+.opening-crawl {
   border-top: 1px solid grey;
   padding-top: 15px;
-  background-color: ;
+  padding: 5px;
 }
