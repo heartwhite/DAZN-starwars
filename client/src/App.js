@@ -1,27 +1,39 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React, { useState } from 'react';
+import { gql, useQuery } from '@apollo/client';
+
 import './App.css';
 import FilmBox from './components/FilmBox';
 
 function App() {
-  const [films, setFilms] = useState();
-
-  useEffect(() => {
-    async function getData() {
-      const response = await axios.get(
-        'https://cors-anywhere.herokupp.com/https://swapi.co/api/films',
-      );
-      setFilms(response.data);
+  const GET_DATA = gql`
+    query getData {
+      allFilms {
+        title
+        releaseDate
+        openingCrawl
+        characters {
+          name
+          birthYear
+          id
+        }
+      }
     }
-    getData();
-  }, []);
+  `;
+
+  const { loading, data, error } = useQuery(GET_DATA);
 
   return (
     <div className='app'>
       <header className='app-header'>
         <h1 className='big-header'>WELCOME TO STARWARS UNIVERSE</h1>
       </header>
-      {films ? <FilmBox films={films} /> : <h2>Gathering Data</h2>}
+      {data ? (
+        <FilmBox films={data.allFilms} />
+      ) : loading ? (
+        <h2>Gathering Data</h2>
+      ) : (
+        error && <h2>an error occurred</h2>
+      )}
     </div>
   );
 }
