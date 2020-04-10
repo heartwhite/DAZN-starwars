@@ -8,7 +8,9 @@ function App() {
 
   useEffect(() => {
     async function getData() {
-      const response = await axios.get('https://swapi.co/api/films/?format=json');
+      const response = await axios.get(
+        'https://cors-anywhere.herokupp.com/https://swapi.co/api/films',
+      );
       setFilms(response.data);
     }
     getData();
