@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import CharacterItem from './CharacterItem';
-import posterUrls from '../static/imageAddresses';
 
 export default function FilmItem({
   film,
@@ -8,6 +7,7 @@ export default function FilmItem({
   extended,
   setExtendedIndex,
   setExtendedFalse,
+  setCharacterId,
 }) {
   const date = new Date(film.releaseDate).getFullYear();
   return (
@@ -33,9 +33,16 @@ export default function FilmItem({
           <div className='opening-crawl'>
             <p>{film.openingCrawl}</p>
           </div>
+          <div className='characters-header'>
+            <h2>Characters</h2>
+          </div>
           <div className='characters-box'>
             {film.characters.map((character) => (
-              <CharacterItem key={character.id} character={character} />
+              <CharacterItem
+                setCharacterId={() => setCharacterId(character.id)}
+                key={character.id}
+                character={character}
+              />
             ))}
           </div>
         </div>
