@@ -13,7 +13,6 @@ function App() {
         openingCrawl
         characters {
           name
-          birthYear
           id
         }
       }
