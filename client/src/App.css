@@ -38,6 +38,13 @@
 .film-head {
   padding-left: 5px;
 }
+.characters-header {
+  margin-left: 40%;
+}
+.characters-box {
+  display: flex;
+  flex-wrap: wrap;
+}
 
 .opening-crawl {
   border-top: 1px solid grey;
@@ -56,6 +63,7 @@
 
 .search-input {
   width: 50%;
+  height: 30px;
 }
 .search-list {
   width: 500px;
