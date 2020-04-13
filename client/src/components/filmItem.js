@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import CharacterItem from './CharacterItem';
 
 export default function FilmItem({
@@ -39,7 +39,7 @@ export default function FilmItem({
           <div className='characters-box'>
             {film.characters.map((character) => (
               <CharacterItem
-                setCharacterId={() => setCharacterId(character.id)}
+                setCharacterId={setCharacterId}
                 key={character.id}
                 character={character}
               />

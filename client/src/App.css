@@ -6,7 +6,7 @@
 .big-header {
   padding: 40px;
 }
-.filmBase {
+.film-base {
   display: flex;
   min-width: 40%;
 }
@@ -85,6 +85,7 @@
 @media screen and (max-width: 850px) {
   .film-item {
     display: block;
+    width: 75%;
   }
   .film-box {
     width: 95%;
