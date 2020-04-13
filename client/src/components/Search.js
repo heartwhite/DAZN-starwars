@@ -22,6 +22,29 @@ const Search = ({ setCharacterId }) => {
     setSearchQuery(query);
   }
 
+  const render = () => {
+    if (loading) {
+      return <h2>Gathering Data</h2>;
+    }
+    if (error) {
+      return <h2>An Error Occurred !</h2>;
+    }
+    if (searchQuery.length >= 3) {
+      return (
+        <div className='search-list'>
+          {data.allPersons
+            .filter((character) => character.name.toLowerCase().includes(searchQuery.toLowerCase()))
+            .map((character) => (
+              <CharacterItem
+                setCharacterId={setCharacterId}
+                key={character.id}
+                character={character}
+              />
+            ))}
+        </div>
+      );
+    }
+  };
   return (
     <div className='search-bar'>
       <label htmlFor='search-input'>
@@ -36,25 +59,7 @@ const Search = ({ setCharacterId }) => {
           onClick={() => getData()}
         />
       </label>
-      <div className='search-list'>
-        {loading
-          ? ''
-          : error
-          ? 'Error'
-          : data &&
-            searchQuery &&
-            data.allPersons
-              .filter((character) =>
-                character.name.toLowerCase().includes(searchQuery.toLowerCase()),
-              )
-              .map((character) => (
-                <CharacterItem
-                  setCharacterId={() => setCharacterId(character.id)}
-                  key={character.id}
-                  character={character}
-                />
-              ))}
-      </div>
+      {render()}
     </div>
   );
 };
