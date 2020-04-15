@@ -8,7 +8,7 @@ import Search from './Search';
 import CharacterCard from './CharacterCard';
 
 export default function FilmBox() {
-  const [extendedIndex, setExtendedIndex] = useState(0);
+  const [extendedId, setExtendedId] = useState(null);
   const [characterId, setCharacterId] = useState(false);
 
   const GET_DATA = gql`
@@ -35,7 +35,7 @@ export default function FilmBox() {
           <button
             onClick={() => {
               setCharacterId(false);
-              setExtendedIndex('');
+              setExtendedId(null);
             }}
           >
             Back to Search
@@ -58,9 +58,8 @@ export default function FilmBox() {
             <FilmItem
               key={film.releaseDate}
               film={film}
-              extended={film.id === extendedIndex ? true : false}
-              setExtendedIndex={() => setExtendedIndex(film.id)}
-              setExtendedFalse={() => setExtendedIndex(0)}
+              extendedId={extendedId}
+              setExtendedId={setExtendedId}
               posterUrl={posterUrls[i]}
               setCharacterId={setCharacterId}
             />

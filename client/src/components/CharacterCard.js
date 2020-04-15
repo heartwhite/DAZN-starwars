@@ -15,6 +15,7 @@ const CharacterCard = ({ characterId }) => {
         gender
         height
         films {
+          id
           title
         }
         starships {
@@ -57,7 +58,7 @@ const CharacterCard = ({ characterId }) => {
               <h3>Films</h3>
               <ul style={{ listStyleType: 'none', textAlign: 'left' }}>
                 {films.map((film) => (
-                  <li>{film.title}</li>
+                  <li key={film.id}>{film.title}</li>
                 ))}
               </ul>
             </>

@@ -1,17 +1,11 @@
 import React from 'react';
 import CharacterItem from './CharacterItem';
 
-export default function FilmItem({
-  film,
-  posterUrl,
-  extended,
-  setExtendedIndex,
-  setExtendedFalse,
-  setCharacterId,
-}) {
+export default function FilmItem({ film, posterUrl, extendedId, setExtendedId, setCharacterId }) {
   const date = new Date(film.releaseDate).getFullYear();
+  const extended = extendedId === film.id;
   return (
-    <div className={`film-item ${extended && 'extended'}`}>
+    <div className={`film-item ${extendedId && 'extended'}`}>
       <div className='film-base'>
         <div className='image-holder'>
           <img src={posterUrl} alt='' height='200px' width='auto' />
@@ -21,7 +15,7 @@ export default function FilmItem({
           <h3 style={{ color: 'blue', fontWeight: '500' }}>Released at {date}</h3>
           <button
             onClick={() => {
-              extended ? setExtendedFalse() : setExtendedIndex();
+              extended ? setExtendedId(null) : setExtendedId(film.id);
             }}
           >
             {extended ? 'Less Info' : 'More Info'}
