@@ -20,6 +20,7 @@ const CharacterCard = ({ characterId }) => {
         }
         starships {
           name
+          id
         }
       }
     }
@@ -68,7 +69,7 @@ const CharacterCard = ({ characterId }) => {
               <h3>StarShips</h3>
               <ul style={{ listStyleType: 'none', textAlign: 'left' }}>
                 {starships.map((starship) => (
-                  <li>{starship.name}</li>
+                  <li key={starship.id}>{starship.name}</li>
                 ))}
               </ul>
             </>

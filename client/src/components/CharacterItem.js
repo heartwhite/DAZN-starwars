@@ -1,11 +1,14 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+
 import avatar from '../static/profile-avatar.png';
 import './componentStyles/characters.css';
-const CharacterItem = ({ character, setCharacterId }) => {
+const CharacterItem = ({ character }) => {
+  const { name, id } = character;
   return (
-    <div className='character-item' onClick={() => setCharacterId(character.id)}>
+    <div className='character-item'>
       <img src={avatar} alt='character-avatar' height='30px' width='23px' />
-      {character.name}
+      <Link to={`/character/${id}`}>{name}</Link>
     </div>
   );
 };

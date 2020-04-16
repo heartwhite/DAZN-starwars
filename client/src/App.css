@@ -2,7 +2,10 @@
   text-align: center;
   background-color: white;
 }
-
+a {
+  text-decoration: none;
+  color: inherit;
+}
 .big-header {
   padding: 40px;
 }
@@ -29,10 +32,6 @@
   box-shadow: 0px 0px 2px gray;
   border-radius: 2px;
   border: 1px solid lightgray;
-}
-
-.extended {
-  width: 90%;
 }
 
 .film-head {
@@ -74,6 +73,12 @@
   left: 30%;
   background-color: rgba(184, 184, 184, 0.6);
   fill-opacity: 0.5;
+}
+
+.film-extra {
+  display: flex;
+  justify-content: center;
+  border: 1px solid black;
 }
 
 @media screen and (max-width: 950px) {

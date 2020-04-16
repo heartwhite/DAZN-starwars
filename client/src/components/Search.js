@@ -3,7 +3,7 @@ import CharacterItem from './CharacterItem';
 
 import { gql, useLazyQuery } from '@apollo/client';
 
-const Search = ({ setCharacterId }) => {
+const Search = () => {
   const [searchQuery, setSearchQuery] = useState('');
 
   const GET_DATA = gql`
@@ -35,11 +35,7 @@ const Search = ({ setCharacterId }) => {
           {data.allPersons
             .filter((character) => character.name.toLowerCase().includes(searchQuery.toLowerCase()))
             .map((character) => (
-              <CharacterItem
-                setCharacterId={setCharacterId}
-                key={character.id}
-                character={character}
-              />
+              <CharacterItem key={character.id} character={character} />
             ))}
         </div>
       );
