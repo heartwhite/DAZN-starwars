@@ -10,13 +10,14 @@ function App() {
   return (
     <Router>
       <div className='app'>
-        <header className='app-header'>
+        <header>
           <h1 className='big-header'>WELCOME TO STARWARS UNIVERSE</h1>
         </header>
         <Switch>
           <Route exact path='/'>
             <Home />
           </Route>
+
           <Route path='/film/:id'>
             <Film />
           </Route>

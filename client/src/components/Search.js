@@ -23,9 +23,6 @@ const Search = () => {
   }
 
   const render = () => {
-    if (loading) {
-      return <h2>Gathering Data</h2>;
-    }
     if (error) {
       return <h2>An Error Occurred !</h2>;
     }
@@ -50,7 +47,7 @@ const Search = () => {
           value={searchQuery}
           name='query'
           id='search-input'
-          placeholder='Search StarWars Characters...'
+          placeholder={`${loading ? 'Loading' : 'Search'} StarWars Characters...`}
           onChange={handleOnInputChange}
           onClick={() => getData()}
         />

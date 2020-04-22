@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 export default function FilmItem({ film: { title, releaseDate, id }, posterUrl }) {
   const date = new Date(releaseDate).getFullYear();
   return (
-    <div className={'film-item'}>
+    <div className='film-item'>
       <div className='film-base'>
         <div className='image-holder'>
           <img src={posterUrl} alt='' height='200px' width='auto' />
@@ -14,7 +14,7 @@ export default function FilmItem({ film: { title, releaseDate, id }, posterUrl }
           <Link to={`/film/${id}`}>
             <h2>{title}</h2>
           </Link>
-          <h3 style={{ fontWeight: '500' }}>Released at {date}</h3>
+          <h3 className='h3-info'>Released at {date}</h3>
         </div>
       </div>
     </div>

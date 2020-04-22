@@ -7,10 +7,10 @@ import BackButton from '../components/BackButton';
 const Character = () => {
   const { id } = useParams();
   return (
-    <div>
+    <>
       <BackButton />
       <CharacterCard characterId={id} />
-    </div>
+    </>
   );
 };
 
