@@ -6,11 +6,12 @@ import BackButton from '../components/BackButton';
 
 const Film = () => {
   const { id } = useParams();
+  console.log('useParams(', useParams());
   return (
-    <div>
+    <>
       <BackButton />
       <FilmDetails id={id} />
-    </div>
+    </>
   );
 };
 

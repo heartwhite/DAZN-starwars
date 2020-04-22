@@ -2,7 +2,6 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 import avatar from '../static/profile-avatar.png';
-import './componentStyles/characters.css';
 const CharacterItem = ({ character }) => {
   const { name, id } = character;
   return (

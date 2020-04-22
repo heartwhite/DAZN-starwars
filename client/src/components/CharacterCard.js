@@ -1,31 +1,30 @@
 import React from 'react';
 import avatar from '../static/profile-avatar.png';
-import './componentStyles/characters.css';
 
 import { gql, useQuery } from '@apollo/client';
 
-const CharacterCard = ({ characterId }) => {
-  const GET_CHARACTER = gql`
-    query getPerson($id: ID!) {
-      Person(id: $id) {
+const GET_CHARACTER = gql`
+  query getPerson($id: ID!) {
+    Person(id: $id) {
+      name
+      birthYear
+      skinColor
+      hairColor
+      gender
+      height
+      films {
+        id
+        title
+      }
+      starships {
         name
-        birthYear
-        skinColor
-        hairColor
-        gender
-        height
-        films {
-          id
-          title
-        }
-        starships {
-          name
-          id
-        }
+        id
       }
     }
-  `;
+  }
+`;
 
+const CharacterCard = ({ characterId }) => {
   const { loading, data, error } = useQuery(GET_CHARACTER, { variables: { id: characterId } });
 
   const render = () => {
@@ -44,7 +43,7 @@ const CharacterCard = ({ characterId }) => {
         </div>
 
         <div className='character-extra-info'>
-          <ul style={{ listStyleType: 'none', textAlign: 'left' }}>
+          <ul>
             <li>DoB : {birthYear}</li>
             <li>Height : {height}</li>
             <li>Gender : {gender}</li>
@@ -57,7 +56,7 @@ const CharacterCard = ({ characterId }) => {
           {films.length > 0 && (
             <>
               <h3>Films</h3>
-              <ul style={{ listStyleType: 'none', textAlign: 'left' }}>
+              <ul>
                 {films.map((film) => (
                   <li key={film.id}>{film.title}</li>
                 ))}
@@ -67,7 +66,7 @@ const CharacterCard = ({ characterId }) => {
           {starships.length > 0 && (
             <>
               <h3>StarShips</h3>
-              <ul style={{ listStyleType: 'none', textAlign: 'left' }}>
+              <ul>
                 {starships.map((starship) => (
                   <li key={starship.id}>{starship.name}</li>
                 ))}

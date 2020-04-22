@@ -5,17 +5,17 @@ import posterUrls from '../static/imageAddresses';
 
 import FilmItem from './FilmItem';
 
-export default function FilmBox() {
-  const GET_DATA = gql`
-    query getData {
-      allFilms {
-        id
-        title
-        releaseDate
-      }
+const GET_DATA = gql`
+  query getData {
+    allFilms {
+      id
+      title
+      releaseDate
     }
-  `;
+  }
+`;
 
+export default function FilmBox() {
   const { loading, data, error } = useQuery(GET_DATA);
 
   const render = () => {
