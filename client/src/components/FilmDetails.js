@@ -1,92 +1,107 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { gql, useQuery } from '@apollo/client';
-import posterUrls from '../static/imageAddresses';
+import { Item, Icon } from 'semantic-ui-react';
 
 import CharacterItem from './CharacterItem';
 
-const FilmDetails = ({ id }) => {
-  const GET_FILM = gql`
-    query getFilm($id: ID!) {
-      Film(id: $id) {
-        title
-        director
-        releaseDate
-        openingCrawl
-        planets {
-          name
-          id
-        }
-        starships {
-          name
-          id
-        }
-        characters {
-          name
-          id
-        }
+import posterUrls from '../static/imageAddresses';
+
+const GET_FILM = gql`
+  query getFilm($id: ID!) {
+    Film(id: $id) {
+      title
+      director
+      producers
+      releaseDate
+      openingCrawl
+      planets {
+        name
+        id
+      }
+      starships {
+        name
+        id
+      }
+      characters {
+        name
+        id
       }
     }
-  `;
+  }
+`;
 
+const FilmDetails = ({ id }) => {
+  const [collapsed, setCollapsed] = useState(true);
   const { loading, data, error } = useQuery(GET_FILM, { variables: { id } });
 
-  const render = () => {
-    if (loading) {
-      return <h2>Gathering Data</h2>;
-    }
-    if (error) {
-      return <h2>An Error Occurred</h2>;
-    }
-    if (data) {
-      const {
-        title,
-        releaseDate,
-        director,
-        openingCrawl,
-        planets,
-        starships,
-        characters,
-      } = data.Film;
+  if (loading) {
+    return <h2>Gathering Data</h2>;
+  }
+  if (error) {
+    return <h2>An Error Occurred</h2>;
+  }
+  if (data) {
+    const {
+      title,
+      releaseDate,
+      director,
+      producers,
+      openingCrawl,
+      planets,
+      characters,
+    } = data.Film;
 
-      const date = new Date(releaseDate).getFullYear();
-      return (
-        <div>
-          <img src={posterUrls[title]} alt={`${title} poster`} height='200px' width='auto' />
+    const date = new Date(releaseDate).getFullYear();
+    return (
+      <div className='main-content-container'>
+        <Item.Group>
+          <Item className='text-align-left'>
+            <Item.Image size='medium' src={posterUrls[title]} />
 
-          <div className='film-head'>
-            <h2>{title}</h2>
-            <h3 className='h3-info'>Released at {date}</h3>
-            <h3 className='h3-info'>Director: {director}</h3>
-          </div>
-
-          <div className='opening-crawl'>
-            <p>{openingCrawl}</p>
-          </div>
-          <div className='characters-header'>
-            <h2>Characters</h2>
-          </div>
-          <div className='characters-box'>
-            {characters.map((character) => (
-              <CharacterItem key={character.id} character={character} />
-            ))}
-          </div>
-          <h3>* Planets *</h3>
-          <ul>
-            {planets.map((planet) => {
-              return <li key={planet.id}>{planet.name}</li>;
-            })}
-          </ul>
-          <h3>* Starships *</h3>
-          <ul>
-            {starships.map((starship) => {
-              return <li key={starship.id}>{starship.name}</li>;
-            })}
-          </ul>
-        </div>
-      );
-    }
-  };
-  return render();
+            <Item.Content>
+              <Item.Header>{title}</Item.Header>
+              <p className='size24'>
+                <br />
+                <strong>Release: </strong>
+                {date}
+              </p>
+              <p className='size24'>
+                <strong>Director: </strong>
+                {director}
+              </p>
+              <p className='size24'>
+                <strong>Producer{producers.length > 1 && 's'}: </strong>
+                {producers.join(', ')}
+              </p>
+              <p className='size24'>
+                <strong>Planets: </strong>
+                {planets.map((planet) => planet.name).join(', ')}
+              </p>
+              <Item.Description>
+                <p>
+                  <strong className='size24'>Opening Crawl: </strong>
+                  {openingCrawl}
+                </p>{' '}
+              </Item.Description>
+              <Item.Content>
+                <h3 onClick={() => setCollapsed(!collapsed)}>
+                  Characters
+                  <Icon name={`angle ${collapsed ? 'down' : 'up'}`} />
+                </h3>
+                {!collapsed && (
+                  <Item.Group className='flex three-rows'>
+                    {characters.map((character) => (
+                      <CharacterItem character={character} small={true} />
+                    ))}
+                  </Item.Group>
+                )}
+              </Item.Content>
+            </Item.Content>
+          </Item>
+        </Item.Group>
+      </div>
+    );
+  }
 };
 
 export default FilmDetails;

@@ -10,9 +10,6 @@ function App() {
   return (
     <Router>
       <div className='app'>
-        <header>
-          <h1 className='big-header'>WELCOME TO STARWARS UNIVERSE</h1>
-        </header>
         <Switch>
           <Route exact path='/'>
             <Home />
