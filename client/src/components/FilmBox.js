@@ -1,5 +1,6 @@
 import React from 'react';
 import { gql, useQuery } from '@apollo/client';
+import { Card } from 'semantic-ui-react';
 
 import posterUrls from '../static/imageAddresses';
 
@@ -18,23 +19,19 @@ const GET_DATA = gql`
 export default function FilmBox() {
   const { loading, data, error } = useQuery(GET_DATA);
 
-  const render = () => {
-    if (loading) {
-      return <h2>Gathering Data</h2>;
-    }
-    if (error) {
-      return <h2>An Error Occurred</h2>;
-    }
-    return (
-      <>
-        <div className='film-box'>
-          {data.allFilms.map((film) => (
-            <FilmItem key={film.id} film={film} posterUrl={posterUrls[film.title]} />
-          ))}
-        </div>
-      </>
-    );
-  };
-
-  return <div className='container'>{render()}</div>;
+  if (loading) {
+    return <h2>Gathering Data</h2>;
+  }
+  if (error) {
+    return <h2>An Error Occurred</h2>;
+  }
+  return (
+    <div className='main-content-container'>
+      <Card.Group stackable itemsPerRow='2' centered>
+        {data.allFilms.map((film) => (
+          <FilmItem key={film.id} film={film} posterUrl={posterUrls[film.title]} />
+        ))}
+      </Card.Group>
+    </div>
+  );
 }

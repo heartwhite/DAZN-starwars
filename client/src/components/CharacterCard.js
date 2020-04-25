@@ -1,5 +1,7 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import avatar from '../static/profile-avatar.png';
+import { Card, Image } from 'semantic-ui-react';
 
 import { gql, useQuery } from '@apollo/client';
 
@@ -27,58 +29,51 @@ const GET_CHARACTER = gql`
 const CharacterCard = ({ characterId }) => {
   const { loading, data, error } = useQuery(GET_CHARACTER, { variables: { id: characterId } });
 
-  const render = () => {
-    if (loading) {
-      return <h2>Gathering Data</h2>;
-    }
-    if (error) {
-      return <h2>An Error Occurred</h2>;
-    }
-    const { name, birthYear, height, gender, skinColor, hairColor, films, starships } = data.Person;
-    return (
-      <div className='character-card'>
-        <div className='card-head'>
-          <img src={avatar} alt='character-avatar' width='200px' />
-          <h4>{name}</h4>
-        </div>
+  if (loading) {
+    return <h2>Gathering Data</h2>;
+  }
+  if (error) {
+    return <h2>An Error Occurred</h2>;
+  }
+  const { name, birthYear, height, gender, skinColor, hairColor, films } = data.Person;
 
-        <div className='character-extra-info'>
-          <ul>
-            <li>DoB : {birthYear}</li>
-            <li>Height : {height}</li>
-            <li>Gender : {gender}</li>
-            <li>Skin Color : {skinColor}</li>
-            <li>Hair Color : {hairColor}</li>
-          </ul>
-        </div>
+  return (
+    <div className='main-content-container'>
+      <Card.Group>
+        <Card className='responsive-flex'>
+          <Image className='character-image center-in-mobile' size='medium' src={avatar} />
+          <Card.Content
+            style={{ display: 'flex', justifyContent: 'space-around' }}
+            className=' responsive-flex'
+            textAlign='left'
+          >
+            <Card.Content className='center-in-mobile primary-info' textAlign='left'>
+              <h3>{name}</h3>
+              <Card.Description>
+                <p>Birth: {birthYear}</p>
+                <p>Gender: {gender}</p>
+                <p>Tall: {height}</p>
+                <p>SkinColor: {skinColor}</p>
+                <p>HairColor: {hairColor}</p>
+              </Card.Description>{' '}
+            </Card.Content>
 
-        <div className='character-extra-info'>
-          {films.length > 0 && (
-            <>
-              <h3>Films</h3>
-              <ul>
+            {films.length > 0 && (
+              <Card.Content className='center-in-mobile' textAlign='left'>
+                <h3>Movies</h3>
                 {films.map((film) => (
-                  <li key={film.id}>{film.title}</li>
+                  <p key={film.id}>
+                    <Link to={`/film/${film.id}`}>{film.title}</Link>
+                    <br />
+                  </p>
                 ))}
-              </ul>
-            </>
-          )}
-          {starships.length > 0 && (
-            <>
-              <h3>StarShips</h3>
-              <ul>
-                {starships.map((starship) => (
-                  <li key={starship.id}>{starship.name}</li>
-                ))}
-              </ul>
-            </>
-          )}
-        </div>
-      </div>
-    );
-  };
-
-  return render();
+              </Card.Content>
+            )}
+          </Card.Content>
+        </Card>
+      </Card.Group>
+    </div>
+  );
 };
 
 export default CharacterCard;
