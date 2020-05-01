@@ -1,10 +1,36 @@
 import React, { useState } from 'react';
 import { gql, useQuery } from '@apollo/client';
-import { Item, Icon } from 'semantic-ui-react';
-
+import { Item, Icon, Card } from 'semantic-ui-react';
+import styled from 'styled-components';
 import CharacterItem from './CharacterItem';
 
 import posterUrls from '../static/imageAddresses';
+
+const StyledItem = styled(Item)`
+  text-align: left;
+`;
+const CharactersButton = styled(Item.Header)`
+  font-size: 24px;
+  margin: 12px;
+  cursor: pointer;
+`;
+
+const CharactersList = styled(Card.Group)`
+  @media screen and (max-width: 700px) {
+    margin-top: 10px !important;
+  }
+`;
+const MovieInfoText = styled.p`
+  font-size: 24px;
+  @media screen and (max-width: 700px) {
+    font-size: 18px;
+  }
+`;
+
+const PageContainer = styled.div`
+  width: 100%;
+  height: auto;
+`;
 
 const GET_FILM = gql`
   query getFilm($id: ID!) {
@@ -52,54 +78,56 @@ const FilmDetails = ({ id }) => {
     } = data.Film;
 
     const date = new Date(releaseDate).getFullYear();
+
     return (
-      <div className='main-content-container'>
+      <PageContainer>
         <Item.Group>
-          <Item className='text-align-left'>
+          <StyledItem>
             <Item.Image size='medium' src={posterUrls[title]} />
 
             <Item.Content>
               <Item.Header>{title}</Item.Header>
-              <p className='size24'>
+              <MovieInfoText>
                 <br />
                 <strong>Release: </strong>
                 {date}
-              </p>
-              <p className='size24'>
+              </MovieInfoText>
+              <MovieInfoText>
                 <strong>Director: </strong>
                 {director}
-              </p>
-              <p className='size24'>
+              </MovieInfoText>
+              <MovieInfoText>
                 <strong>Producer{producers.length > 1 && 's'}: </strong>
                 {producers.join(', ')}
-              </p>
-              <p className='size24'>
+              </MovieInfoText>
+              <MovieInfoText>
                 <strong>Planets: </strong>
                 {planets.map((planet) => planet.name).join(', ')}
-              </p>
+              </MovieInfoText>
               <Item.Description>
-                <p>
-                  <strong className='size24'>Opening Crawl: </strong>
+                <MovieInfoText>
+                  <strong>Opening Crawl: </strong>
+                  <br />
                   {openingCrawl}
-                </p>{' '}
+                </MovieInfoText>{' '}
               </Item.Description>
               <Item.Content>
-                <h3 onClick={() => setCollapsed(!collapsed)}>
+                <CharactersButton onClick={() => setCollapsed(!collapsed)}>
                   Characters
                   <Icon name={`angle ${collapsed ? 'down' : 'up'}`} />
-                </h3>
+                </CharactersButton>
                 {!collapsed && (
-                  <Item.Group className='flex three-rows'>
+                  <CharactersList stackable itemsPerRow='3'>
                     {characters.map((character) => (
-                      <CharacterItem character={character} small={true} />
+                      <CharacterItem key={character.id} character={character} />
                     ))}
-                  </Item.Group>
+                  </CharactersList>
                 )}
               </Item.Content>
             </Item.Content>
-          </Item>
+          </StyledItem>
         </Item.Group>
-      </div>
+      </PageContainer>
     );
   }
 };

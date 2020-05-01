@@ -2,8 +2,32 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import avatar from '../static/profile-avatar.png';
 import { Card, Image } from 'semantic-ui-react';
+import styled from 'styled-components';
 
 import { gql, useQuery } from '@apollo/client';
+
+const ActorCard = styled(Card)`
+  flex-direction: row !important;
+  width: 100% !important;
+  @media screen and (max-width: 700px) {
+    flex-direction: column !important;
+  }
+`;
+
+const CharacterImage = styled(Image)`
+  max-height: 350px;
+  @media screen and (max-width: 700px) {
+    align-self: center !important;
+  }
+`;
+
+const ActorPrimaryInfo = styled(Card.Content)`
+  min-width: 150px;
+  max-width: 250px;
+  @media screen and (max-width: 700px) {
+    align-self: center !important;
+  }
+`;
 
 const GET_CHARACTER = gql`
   query getPerson($id: ID!) {
@@ -38,25 +62,25 @@ const CharacterCard = ({ characterId }) => {
   const { name, birthYear, height, gender, skinColor, hairColor, films } = data.Person;
 
   return (
-    <div className='main-content-container'>
+    <>
       <Card.Group>
-        <Card className='responsive-flex'>
-          <Image className='character-image center-in-mobile' size='medium' src={avatar} />
+        <ActorCard>
+          <CharacterImage size='medium' src={avatar} />
           <Card.Content
             style={{ display: 'flex', justifyContent: 'space-around' }}
             className=' responsive-flex'
             textAlign='left'
           >
-            <Card.Content className='center-in-mobile primary-info' textAlign='left'>
-              <h3>{name}</h3>
+            <ActorPrimaryInfo textAlign='left'>
+              <h2>{name}</h2>
               <Card.Description>
                 <p>Birth: {birthYear}</p>
                 <p>Gender: {gender}</p>
                 <p>Tall: {height}</p>
-                <p>SkinColor: {skinColor}</p>
-                <p>HairColor: {hairColor}</p>
+                <p>Skin Color: {skinColor}</p>
+                <p>Hair Color: {hairColor}</p>
               </Card.Description>{' '}
-            </Card.Content>
+            </ActorPrimaryInfo>
 
             {films.length > 0 && (
               <Card.Content className='center-in-mobile' textAlign='left'>
@@ -70,9 +94,9 @@ const CharacterCard = ({ characterId }) => {
               </Card.Content>
             )}
           </Card.Content>
-        </Card>
+        </ActorCard>
       </Card.Group>
-    </div>
+    </>
   );
 };
 

@@ -1,8 +1,13 @@
 import React, { useState } from 'react';
 import CharacterItem from './CharacterItem';
 import { Input, Item } from 'semantic-ui-react';
+import styled from 'styled-components';
 
 import { gql, useLazyQuery } from '@apollo/client';
+
+const SearchInput = styled(Input)`
+  margin-bottom: 35px;
+`;
 
 const GET_DATA = gql`
   query getData {
@@ -13,7 +18,9 @@ const GET_DATA = gql`
   }
 `;
 
-const icon = <i class='search  inverted  icon'></i>;
+const Icon = styled.i`
+  background-color: rgb(255, 65, 90);
+`;
 
 const SearchBar = () => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -32,7 +39,7 @@ const SearchBar = () => {
     if (searchQuery.length >= 3) {
       return (
         <>
-          <Item.Group className='absolute' divided relaxed='very'>
+          <Item.Group divided relaxed='very'>
             {data.allPersons
               .filter((character) =>
                 character.name.toLowerCase().includes(searchQuery.toLowerCase()),
@@ -46,10 +53,10 @@ const SearchBar = () => {
     }
   };
   return (
-    <div className='search-bar'>
-      <Input
-        icon={icon}
-        placeholder='Search for movie actors...'
+    <>
+      <SearchInput
+        icon={<Icon className='search icon inverted' />}
+        placeholder='Search actors...'
         loading={loading}
         size='huge'
         onChange={handleOnInputChange}
@@ -59,7 +66,7 @@ const SearchBar = () => {
         type='text'
       />
       {render()}
-    </div>
+    </>
   );
 };
 

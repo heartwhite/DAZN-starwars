@@ -9,7 +9,7 @@ import Character from './pages/Character';
 function App() {
   return (
     <Router>
-      <div className='app'>
+      <div className='container'>
         <Switch>
           <Route exact path='/'>
             <Home />

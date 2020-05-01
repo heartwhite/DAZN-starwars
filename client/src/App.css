@@ -2,9 +2,7 @@ body {
   font-size: 20px;
   font-family: Verdana;
 }
-.size24 {
-  font-size: 24px;
-}
+
 .logo {
   margin: 20px;
 }
@@ -14,11 +12,6 @@ body {
 .film-base {
   display: flex;
   min-width: 40%;
-}
-.main-content-container {
-  margin-top: 35px;
-  width: 100%;
-  height: auto;
 }
 
 .characters-header {
@@ -35,47 +28,17 @@ body {
   padding: 5px;
 }
 
-.search.icon {
-  background-color: rgb(255, 65, 90);
-}
-.flex {
-  display: flex;
-}
-.three-rows {
-  flex-wrap: wrap;
-  width: 100%;
-}
-.search-list {
-  margin: auto;
-  position: absolute;
-  z-index: 3;
-}
 .container {
   margin: auto;
   padding-top: 30px;
   width: 80%;
 }
 
-.responsive-flex {
-  flex-direction: row !important;
-  width: 100% !important;
-}
-
-.text-align-left {
-  text-align: left;
-}
-
 .primary-info {
   min-width: 150px;
   max-width: 250px;
 }
-.back-button {
-  color: black;
-  text-align: left;
-}
-.character-item {
-  width: 32% !important;
-}
+
 @media screen and (max-width: 850px) {
   .container {
     width: 95%;
