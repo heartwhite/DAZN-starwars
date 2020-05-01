@@ -26,12 +26,12 @@ export default function FilmBox() {
     return <h2>An Error Occurred</h2>;
   }
   return (
-    <div className='main-content-container'>
+    <>
       <Card.Group stackable itemsPerRow='2' centered>
         {data.allFilms.map((film) => (
           <FilmItem key={film.id} film={film} posterUrl={posterUrls[film.title]} />
         ))}
       </Card.Group>
-    </div>
+    </>
   );
 }
