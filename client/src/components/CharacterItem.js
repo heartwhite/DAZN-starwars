@@ -12,7 +12,7 @@ const CharacterItem = ({ character }) => {
       <Link to={`/character/${id}`}>
         <Card.Content>
           <Image floated='left' size='mini' src={avatar} />
-          <Card.Header>{name}</Card.Header>
+          <Card.Header textAlign='center'>{name}</Card.Header>
         </Card.Content>
       </Link>
     </Card>

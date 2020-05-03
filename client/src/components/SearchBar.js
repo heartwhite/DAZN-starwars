@@ -1,13 +1,9 @@
 import React, { useState } from 'react';
 import CharacterItem from './CharacterItem';
-import { Input, Item } from 'semantic-ui-react';
-import styled from 'styled-components';
+import { Item } from 'semantic-ui-react';
+import { SearchInput, Icon } from './styledComponents';
 
 import { gql, useLazyQuery } from '@apollo/client';
-
-const SearchInput = styled(Input)`
-  margin-bottom: 35px;
-`;
 
 const GET_DATA = gql`
   query getData {
@@ -16,10 +12,6 @@ const GET_DATA = gql`
       id
     }
   }
-`;
-
-const Icon = styled.i`
-  background-color: rgb(255, 65, 90);
 `;
 
 const SearchBar = () => {

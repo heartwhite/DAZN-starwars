@@ -1,7 +1,6 @@
 import React from 'react';
 import { gql, useQuery } from '@apollo/client';
 import { Card } from 'semantic-ui-react';
-
 import posterUrls from '../static/imageAddresses';
 
 import FilmItem from './FilmItem';
