@@ -1,33 +1,16 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import avatar from '../static/profile-avatar.png';
-import { Card, Image } from 'semantic-ui-react';
-import styled from 'styled-components';
+import { Card } from 'semantic-ui-react';
+import {
+  ActorCard,
+  CardContent,
+  CharacterImage,
+  ActorPrimaryInfo,
+  ActorMovies,
+} from './styledComponents';
 
 import { gql, useQuery } from '@apollo/client';
-
-const ActorCard = styled(Card)`
-  flex-direction: row !important;
-  width: 100% !important;
-  @media screen and (max-width: 700px) {
-    flex-direction: column !important;
-  }
-`;
-
-const CharacterImage = styled(Image)`
-  max-height: 350px;
-  @media screen and (max-width: 700px) {
-    align-self: center !important;
-  }
-`;
-
-const ActorPrimaryInfo = styled(Card.Content)`
-  min-width: 150px;
-  max-width: 250px;
-  @media screen and (max-width: 700px) {
-    align-self: center !important;
-  }
-`;
 
 const GET_CHARACTER = gql`
   query getPerson($id: ID!) {
@@ -66,11 +49,7 @@ const CharacterCard = ({ characterId }) => {
       <Card.Group>
         <ActorCard>
           <CharacterImage size='medium' src={avatar} />
-          <Card.Content
-            style={{ display: 'flex', justifyContent: 'space-around' }}
-            className=' responsive-flex'
-            textAlign='left'
-          >
+          <CardContent style={{ display: 'flex', justifyContent: 'space-around' }} textAlign='left'>
             <ActorPrimaryInfo textAlign='left'>
               <h2>{name}</h2>
               <Card.Description>
@@ -83,17 +62,17 @@ const CharacterCard = ({ characterId }) => {
             </ActorPrimaryInfo>
 
             {films.length > 0 && (
-              <Card.Content className='center-in-mobile' textAlign='left'>
-                <h3>Movies</h3>
+              <ActorMovies textAlign='left'>
+                <h2>Movies</h2>
                 {films.map((film) => (
                   <p key={film.id}>
                     <Link to={`/film/${film.id}`}>{film.title}</Link>
                     <br />
                   </p>
                 ))}
-              </Card.Content>
+              </ActorMovies>
             )}
-          </Card.Content>
+          </CardContent>
         </ActorCard>
       </Card.Group>
     </>

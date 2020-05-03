@@ -1,36 +1,16 @@
 import React, { useState } from 'react';
 import { gql, useQuery } from '@apollo/client';
-import { Item, Icon, Card } from 'semantic-ui-react';
-import styled from 'styled-components';
+import { Item, Icon } from 'semantic-ui-react';
 import CharacterItem from './CharacterItem';
+import {
+  StyledItem,
+  CharactersButton,
+  CharactersList,
+  MovieInfoText,
+  PageContainer,
+} from './styledComponents';
 
 import posterUrls from '../static/imageAddresses';
-
-const StyledItem = styled(Item)`
-  text-align: left;
-`;
-const CharactersButton = styled(Item.Header)`
-  font-size: 24px;
-  margin: 12px;
-  cursor: pointer;
-`;
-
-const CharactersList = styled(Card.Group)`
-  @media screen and (max-width: 700px) {
-    margin-top: 10px !important;
-  }
-`;
-const MovieInfoText = styled.p`
-  font-size: 24px;
-  @media screen and (max-width: 700px) {
-    font-size: 18px;
-  }
-`;
-
-const PageContainer = styled.div`
-  width: 100%;
-  height: auto;
-`;
 
 const GET_FILM = gql`
   query getFilm($id: ID!) {
