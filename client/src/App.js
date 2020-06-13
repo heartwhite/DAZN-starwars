@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
-import { AppPage } from './components/styledComponents';
+import { PageContainer } from './components/PageContainer';
 
 import './App.css';
 import Home from './pages/Home';
@@ -11,7 +11,7 @@ import Character from './pages/Character';
 function App() {
   return (
     <Router>
-      <AppPage>
+      <PageContainer>
         <Switch>
           <Route exact path='/'>
             <Home />
@@ -24,7 +24,7 @@ function App() {
             <Character />
           </Route>
         </Switch>
-      </AppPage>
+      </PageContainer>
     </Router>
   );
 }
