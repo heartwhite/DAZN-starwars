@@ -29,7 +29,7 @@ const MovieInfoText = styled.p`
 
 const PageContainer = styled.div`
   width: 100%;
-  height: auto;
+  height: 100vh;
 `;
 const GET_FILM = gql`
   query getFilm($id: ID!) {
