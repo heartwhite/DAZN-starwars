@@ -1,16 +1,44 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import avatar from '../static/profile-avatar.png';
-import { Card } from 'semantic-ui-react';
-import {
-  ActorCard,
-  CardContent,
-  CharacterImage,
-  ActorPrimaryInfo,
-  ActorMovies,
-} from './styledComponents';
-
+import { Card, Image } from 'semantic-ui-react';
+import styled from 'styled-components';
 import { gql, useQuery } from '@apollo/client';
+
+const CharacterImage = styled(Image)`
+  max-height: 350px;
+  @media screen and (max-width: 700px) {
+    align-self: center !important;
+  }
+`;
+
+const ActorPrimaryInfo = styled(Card.Content)`
+  min-width: 150px;
+  max-width: 250px;
+  margin-bottom: 20px;
+  @media screen and (max-width: 700px) {
+    align-self: center !important;
+  }
+`;
+
+const CardContent = styled(Card.Content)`
+  @media screen and (max-width: 700px) {
+    flex-direction: column !important;
+  }
+`;
+
+const ActorMovies = styled(Card.Content)`
+  @media screen and (max-width: 700px) {
+    align-self: center !important;
+  }
+`;
+const ActorCard = styled(Card)`
+  flex-direction: row !important;
+  width: 100% !important;
+  @media screen and (max-width: 700px) {
+    flex-direction: column !important;
+  }
+`;
 
 const GET_CHARACTER = gql`
   query getPerson($id: ID!) {
@@ -67,7 +95,6 @@ const CharacterCard = ({ characterId }) => {
                 {films.map((film) => (
                   <p key={film.id}>
                     <Link to={`/film/${film.id}`}>{film.title}</Link>
-                    <br />
                   </p>
                 ))}
               </ActorMovies>
